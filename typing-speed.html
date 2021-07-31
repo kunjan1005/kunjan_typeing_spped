@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            *{
+                margin:0px;
+                padding:0px;
+                box-sizing: border-box;
+            }
+            body{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: cadetblue;
+            }
+            .main-div{
+                color:white;
+            
+                width:60%;
+            
+                text-align: center;
+                margin:auto;
+                border:none;
+            
+                margin-top: 10rem;
+            }
+            .heading{
+                font-size: larger;
+            }
+            textarea{
+                min-width: 90%;
+                width:90%;
+                height:13rem;
+                min-height: 13rem;
+    
+                background-color: darkgray;
+                font-size:20px;
+                border: none;
+                outline: none;
+                padding:5px;
+            }
+            #btn{
+                padding:5px;
+                width:50px;
+                background-color:darkseagreen;
+                border:none;
+                cursor: pointer;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class='main-div'>
+            <div class="heading">
+    <h2 >Test Your typing Speed</h2>
+    <h4 id='msg' style="color:black;"> </h4>
+            </div><br>
+            <div class="typing-area">
+                <textarea type='text' id="inputbox"></textarea>
+            </div>
+            <button id='btn'>Start</button>
+        </div>
+        <script>
+             const msg=document.getElementById('msg');
+             const myWords=document.getElementById('inputbox');
+             const btn=document.getElementById('btn'); 
+             console.log(btn);
+             let stime; 
+             let etime ; 
+             const setWords=[
+             'The Paragraphs module allows content creators to choose which kinds of paragraphs they want to place on the page',
+             'the order in which they want to place them. They can do all of this through the familiar node edit screen. There is no need to resort to code',
+             'the dreaded block placement config screen or Panelizer overrides. They just use node edit form where all content is available to them in one place.',
+             'The Edgy module gives you the ability to switch between edge to edge and normal designs.Give your content creators the ability to easily create full width sections of the pag',
+             'The Paragraphs Pack module provides you with a growing list of super handy paragraphs: Content list , Taxonomy list, User list, Gallery, Slideshow and Content.',    
+             ];
+             const playGame=()=>{
+                 let rnum=Math.floor(Math.random()*setWords.length);
+                 console.log(rnum);
+                 msg.innerText=setWords[rnum];
+                 const date=new Date();
+                 stime=date.getTime();
+                 btn.innerText='Done';
+             }
+             const checkwords=(wrd,text)=>{
+                const myw=wrd.split(' ');
+                const comw=text.split(' ');
+            
+                let count=0;
+                comw.forEach((item,index )=> {
+                  if(item==myw[index]){
+                    count++;
+                }
+                });
+                 const date=new Date();
+                  etime=date.getTime();
+                  let totaltime=((etime-stime)/1000);
+                  console.log('time',totaltime)
+                  console.log(Math.round(((myw.length)/totaltime)));
+                  let speed=Math.round((myw.length/totaltime)*60);
+                  console.log(speed);
+                  msg.innerText=`You Write Total ${myw.length} at  ${speed} speed at.
+                  The Correct Words ${count} and The incorrect Words ${comw.length-count}.Total Words ${comw.length}`;
+                  btn.innerText='Start';
+                              
+              }
+             const endGame=()=>{
+                  let words=myWords.value;
+                  console.log(msg.innerText);
+                  checkwords(words,msg.innerText);
+               }
+
+              btn.addEventListener('click',function(){
+                 // console.log(this);
+                  if(this.innerText=='Start'){
+                     // console.log(this.innerText);
+                     this.desabled=false;
+                 
+                     playGame();
+                  }else if(this.innerText=='Done'){
+
+                     endGame();
+                  }
+               });
+         </script>
+
+
+    </body>
+
+</html>
